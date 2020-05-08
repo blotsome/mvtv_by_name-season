@@ -11,8 +11,10 @@ Clone the repo, or simply create a .sh file in your download directory. Make sur
 One you have your directory path set, you just need to run the file ./filemv.sh. You can set up a cronjob to run this task periodically, or you can even set up a task to monitor directory for changes. Will try to work on these automation instructions more in the future.
 
 There are 2 additional option modes, -q and -t.
+
 -q
   This is quiet mode (-q), and nothing will print in the command line, so you will get no feedback whether this worked or not
+
 -t
   This is test mode (-t), and no actions will be taken with the file system in terms of moving or creating new directories, but all success and fail messages will print.
 -h
