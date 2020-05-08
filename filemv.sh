@@ -44,16 +44,16 @@ do
     if [[ $f =~ $regex ]]; then
         filename=${BASH_REMATCH[1]//./ }
         filename=$(ftc $filename)
-        if echo $filename | grep -iqF rupaul; then
-            filename=$(echo "$filename" | sed 's/rupaul/RuPaul/gi')
+        if printf $filename | grep -iqF rupaul; then
+            filename=$(printf "$filename" | sed 's/rupaul/RuPaul/gi')
         fi
         filename="$(echo -e "$filename" | sed -e 's/[[:space:]]*$//')"
         if ! [[ $quiet_flag ]]; then
-          echo "FOUND MATCH: ${filename}"
+          printf '%b\n' "FOUND MATCH: ${filename}"
         fi
     else
         if ! [[ $quiet_flag ]]; then
-          echo "No match found!"
+          printf '%b\n' "No match found!"
         fi
     fi
 
@@ -62,11 +62,11 @@ do
         season=${BASH_REMATCH[1]}
         season=$(printf %02d $season)
         if ! [[ $quiet_flag ]]; then
-          echo "FOUND SEASON: ${season}"
+          printf '%b\n' "FOUND SEASON: ${season}"
         fi
     else
         if ! [[ $quiet_flag ]]; then
-          echo "No season found!"
+          printf '%b\n' "No season found!"
         fi
     fi
 
@@ -74,11 +74,11 @@ do
     if [[ $f =~ $regex3 ]]; then
         episode=${BASH_REMATCH[1]}
         if ! [[ $quiet_flag ]]; then
-          echo "FOUND EPISODE: ${episode}"
+          printf '%b\n' "FOUND EPISODE: ${episode}"
         fi
     else
         if ! [[ $quiet_flag ]]; then
-          echo "No episode found!"
+          printf '%b\n' "No episode found!"
         fi
     fi
 
@@ -88,7 +88,7 @@ do
     #identified, then create that directory first before moving
     if [[ -d $dir ]]; then
         if ! [[ $quiet_flag ]]; then
-          echo "Directory $dir exists!"
+          printf '%b\n' "Directory $dir exists!"
         fi
         if ! [[ $test_flag ]]; then
           if ! [[ $quiet_flag ]]; then
@@ -99,7 +99,7 @@ do
         fi
     elif [[ $episode = "01" || $episode = "1" ]]; then
         if ! [[ $quiet_flag ]]; then
-          echo "New season detected!"
+          printf '%b\n' "New season detected!"
         fi
         if ! [[ $test_flag ]]; then
           mkdir "$dir"
@@ -111,7 +111,7 @@ do
         fi
     else
         if ! [[ $quiet_flag ]]; then
-          echo "Directory not found for $dir, did not move."
+          printf '%b\n' "Directory not found for $dir, did not move."
         fi
     fi
 done
