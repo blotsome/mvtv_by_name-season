@@ -37,6 +37,7 @@ do
     #attempt to identify season #
     if [[ $f =~ $regex2 ]]; then
         season=${BASH_REMATCH[1]}
+        season=$(printf %02d $season)
         echo "FOUND SEASON: ${season}"
     else
         echo "No season found!"
