@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#please set the path to your TV library parent directory, could be relative or absolute
+path='../../TV'
+
 #function to convert to title case, used in Directory location
 #by stackoverflow user agc
 ftc() { set ${*,,} ; set ${*^} ; echo -n "$1 " ; shift 1 ; \
@@ -83,7 +86,7 @@ do
     fi
 
     #sets directory target based on information found above
-    dir="../../TV/$filename/Season $season/"
+    dir="${path}/${filename}/Season ${season}/"
     #and if that directory exists, move file there, and if not, and new season (episode 1)
     #identified, then create that directory first before moving
     if [[ -d $dir ]]; then
