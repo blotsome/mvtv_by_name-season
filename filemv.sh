@@ -6,7 +6,7 @@ path='../../TV'
 #function to convert to title case, used in Directory location
 #by stackoverflow user agc
 ftc() { set ${*,,} ; set ${*^} ; echo -n "$1 " ; shift 1 ; \
-        for f in ${*} ; do \
+        for f in "$@" ; do \
             case $f in  A|The|Is|Of|And|Or|But|About|To|In|By) \
                     echo -n "${f,,} " ;; \
                  *) echo -n "$f " ;; \
@@ -46,11 +46,11 @@ do
     #and standardizing captialization. extra work needed for non standard RuPaul capitalization
     if [[ $f =~ $regex ]]; then
         filename=${BASH_REMATCH[1]//./ }
-        filename=$(ftc $filename)
-        if printf $filename | grep -iqF rupaul; then
-            filename=$(printf "$filename" | sed 's/rupaul/RuPaul/gi')
+        filename=$(ftc "$filename")
+        if printf '%s\n' "$filename" | grep -iqF rupaul; then
+            filename=$(printf '%s\n' "$filename" | sed 's/rupaul/RuPaul/gi')
         fi
-        filename="$(echo -e "$filename" | sed -e 's/[[:space:]]*$//')"
+        filename="$(printf '%b\n' "$filename" | sed -e 's/[[:space:]]*$//')"
         if ! [[ $quiet_flag ]]; then
           printf '%b\n' "FOUND MATCH: ${filename}"
         fi
@@ -63,7 +63,7 @@ do
     #attempt to identify season #
     if [[ $f =~ $regex2 ]]; then
         season=${BASH_REMATCH[1]}
-        season=$(printf %02d $season)
+        season=$(printf %02d "$season")
         if ! [[ $quiet_flag ]]; then
           printf '%b\n' "FOUND SEASON: ${season}"
         fi
