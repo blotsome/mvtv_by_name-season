@@ -50,6 +50,9 @@ do
         if printf '%s\n' "$filename" | grep -iqF rupaul; then
             filename=$(printf '%s\n' "$filename" | sed 's/rupaul/RuPaul/gi')
         fi
+        if printf '%s\n' "$filename" | grep -iqF \ Uk; then
+            filename=$(printf '%s\n' "$filename" | sed 's/Uk/UK/gi')
+        fi
         filename="$(printf '%b\n' "$filename" | sed -e 's/[[:space:]]*$//')"
         if ! [[ $quiet_flag ]]; then
           printf '%b\n' "FOUND MATCH: ${filename}"
